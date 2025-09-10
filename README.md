@@ -1,157 +1,270 @@
-# global-cancer-trends-2015-2024 📈🩺
+🩺 Cancer Data Analysis (2015–2024)
 
-> **Exploratory Data Analysis & Baseline Modeling**
+This project analyzes global cancer patient data (2015–2024) to explore risk factors, treatment costs, cancer stages, and survival outcomes using Machine Learning & Statistical Analysis.
+Notebook: Cancer_Data_Analysis.ipynb
+Dataset: global_cancer_patients_2015_2024.csv
 
----
+📊 Dataset
 
-## 🚀 Project Summary
+Source: Global cancer dataset (2015–2024)
+Features include:
 
-A polished, reproducible analysis of global cancer patient data (2015–2024). This project performs thorough EDA, statistical testing, visualization, and baseline predictive modeling to investigate relationships between risk factors, treatment costs, cancer stages, and survival outcomes.
+Patient ID
 
-This README was generated after carefully reviewing the `Cancer_Data_Analysis.ipynb` notebook and includes a clear roadmap to reproduce and extend the work.
+Gender
 
----
+Country/Region
 
-## 📁 Repository Structure
+Cancer Type
 
-```
-global-cancer-trends-2015-2024/
-├── Cancer_Data_Analysis.ipynb     # Main Jupyter notebook
-├── global_cancer_patients_2015_2024.csv  # Primary dataset
-├── assets/                         # (suggested) images & plots exported from notebook
-├── requirements.txt                # Suggested Python dependencies
-└── README.md                       # This file
-```
+Cancer Stage
 
----
+Age at Diagnosis
 
-## ✨ Highlights (from the notebook)
+Genetic Risk
 
-* Cleaned and explored a global dataset of cancer patients (2015–2024).
-* Visualized distributions (age, gender, country, cancer type, stage) and trends by year.
-* Examined correlations between **treatment cost** and **survival years** (Pearson & Spearman tests).
-* Assessed **early-stage diagnosis proportions** across cancer types (Stage 0 + Stage I).
-* Fitted **interaction models** (e.g., `Target_Severity_Score ~ Genetic_Risk * Smoking`) to test whether genetic risk amplifies smoking effects.
-* Built baseline predictive models:
+Smoking, Alcohol Use, Obesity Level, Air Pollution Exposure
 
-  * Random Forest to predict **Target\_Severity\_Score** (feature importance and diagnostics included).
-  * Random Forest with **GridSearchCV** for **Survival\_Years**. (Best parameters and evaluation metrics are shown in the notebook.)
+Treatment Cost (USD)
 
----
+Survival Years
 
-## 📌 Key Reproducible Results (from the notebook)
+Target Severity Score (derived target)
 
-* `GridSearchCV` best parameters for Survival Years prediction (example found in notebook):
+🔎 Project Workflow
+🔹 Data Preprocessing
 
-  ```text
-  {'max_depth': 5, 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 200}
-  ```
+Handled missing values & duplicates
 
-  Observed R² (example run): train ≈ 0.0090, test ≈ -0.0003 — indicates the model struggles to explain survival variance and needs improvements/feature engineering.
+Encoded categorical features (Gender, Country, Cancer_Type, Cancer_Stage)
 
-> Full model outputs, coefficients, p-values (stat tests), and plots are available inline in `Cancer_Data_Analysis.ipynb`.
+Normality check with Shapiro-Wilk test
 
----
+🔹 Exploratory Data Analysis (EDA)
 
-## 🧭 How to run locally
+Distribution of Age, Gender, Cancer Types, Stages
 
-1. Clone the repo
+Country/Region-wise case counts
 
-```bash
-git clone <your-repo-url>
-cd global-cancer-trends-2015-2024
-```
+Correlation tests: Treatment Cost vs Survival Years (Pearson & Spearman)
 
-2. Create venv & install packages
+Early Stage Diagnosis proportions (Stage 0 + Stage I) by Cancer Type
 
-```bash
-python -m venv venv
-source venv/bin/activate   # macOS / Linux
-venv\Scripts\activate     # Windows
+Interaction Models: Examined if Genetic Risk × Smoking increases severity
+
+🔹 Model Building
+
+Random Forest Regressor for Target Severity Score prediction
+
+Random Forest + GridSearchCV for Survival Years prediction
+
+Feature importance visualization
+
+🔹 Evaluation
+
+Metrics used:
+
+R² Score (Train/Test)
+
+Residual analysis
+
+Observed that baseline Random Forest had low R² → scope for better models (XGBoost, Survival Analysis)
+
+📈 Results
+
+Early-stage diagnosis rates:
+
+Lung Cancer ≈ 38% diagnosed at Stage 0/I
+
+Leukemia ≈ 39% diagnosed at Stage 0/I
+
+Treatment cost vs survival years: Weak correlation (both Pearson & Spearman)
+
+Interaction (Genetic Risk × Smoking): Positive & significant, meaning smoking has a stronger negative effect for high-risk individuals
+
+Model Performance:
+
+Random Forest (Severity Prediction): R² ≈ low but feature importance useful
+
+Random Forest + GridSearchCV (Survival Years): Best params found, but still poor generalization (Test R² < 0)
+
+⚙️ Requirements
+
+Install dependencies using:
+
 pip install -r requirements.txt
-```
 
-If `requirements.txt` is missing, install the common packages used in the notebook:
 
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn scipy statsmodels jupyterlab plotly
-```
+Example requirements.txt:
 
-3. Open the notebook
+pandas  
+numpy  
+matplotlib  
+seaborn  
+scikit-learn  
+scipy  
+statsmodels  
+jupyterlab  
+plotly  
 
-```bash
-jupyter lab
-# then open Cancer_Data_Analysis.ipynb
-```
+▶️ How to Run
 
----
+Clone the repository:
 
-## 🧪 Notebook Walkthrough (recommended order)
+git clone https://github.com/your-username/global-cancer-trends-2015-2024.git
+cd global-cancer-trends-2015-2024
 
-1. **01\_data\_overview** — load dataset, inspect shape, nulls, dtypes, duplicates.
-2. **02\_univariate\_analysis** — distributions: Age, Gender, Country, Cancer\_Type, Cancer\_Stage.
-3. **03\_bivariate\_analysis** — scatterplots, correlation matrix, cost vs survival tests (Pearson/Spearman).
-4. **04\_stage\_analysis** — proportions of early-stage (Stage 0 + Stage I) per cancer type with bar charts.
-5. **05\_stat\_tests** — normality checks (Shapiro), Kruskal/ANOVA as appropriate, and interpretation.
-6. **06\_interaction\_models** — OLS regressions with interactions (Genetic\_Risk × Smoking) and summaries.
-7. **07\_models** — baseline RandomForest regressors with feature importance, and hyperparameter tuning (GridSearchCV) for survival.
-8. **08\_conclusions** — practical takeaways, limitations, and suggested next steps.
 
----
+Open the notebook:
 
-## 🔬 Suggested Improvements & Next Steps
+jupyter notebook Cancer_Data_Analysis.ipynb
 
-* Improve target modeling:
 
-  * More feature engineering (e.g., comorbidity counts, treatment-type encoding, time-to-treatment).
-  * Try gradient boosting (XGBoost / LightGBM) and proper hyperparameter tuning with nested CV.
-  * Use survival-specific models (Cox proportional hazards, random survival forests) for survival-time analysis.
+Run all cells step by step to reproduce results.
 
-* Address imbalance/skew:
+👨‍💻 Author: Amit Sahu
 
-  * Log-transform targets when skewed (`np.log1p`) or use quantile regressors.
+LinkedIn: linkedin.com/in/your-link
 
-* Explainability:
+GitHub: github.com/amitsahu4346
 
-  * Use SHAP values for model interpretability and publish plots in `assets/`.
+Kaggle: kaggle.com/amitsahu
 
-* Packaging:
+✅ अब तुम बस इसे copy-paste करके अपने GitHub repo के README.md में डाल दो।
 
-  * Move pipeline steps to `src/` scripts and add unit tests (`pytest`).
-  * Add a small Streamlit or Dash app to showcase interactive charts.
+👉 चाहो तो मैं तुम्हारे लिए एक requirements.txt और .gitignore भी बना दूँ क्या?
 
----
+You said:
+IS TYPE SE DO COPY EDIT DOWNLOAD 
+ChatGPT said:
 
-## 📷 Visualization tips for README (optional)
+समझ गया भाई 👍
+तुम्हें ऐसे ही आकर्षक README चाहिए जिसमें ऊपर Project name + emoji + Copy | Edit | Download style हो।
 
-* Export key plots from the notebook to `assets/` and embed them in this README for an attractive GitHub landing page. Examples:
+मैं तुम्हारे लिए वैसा ही तैयार करता हूँ:
 
-```markdown
-![Survival Distribution](assets/survival_distribution.png)
-![Early Stage Proportion by Cancer Type](assets/early_stage_by_type.png)
-```
+🩺 global-cancer-trends-2015-2024 📊
 
----
+Exploratory Data Analysis & Baseline Modeling
 
-## 📎 Files to add (recommended)
+🚀 Project Summary
 
-* `requirements.txt` — pin package versions.
-* `.gitignore` — ignore `.venv`, `__pycache__`, `.ipynb_checkpoints`, large raw data if needed.
-* `assets/` — exported static images from notebook.
-* `LICENSE` — e.g., MIT license if you want open reuse.
+A polished, reproducible analysis of global cancer patient data (2015–2024).
+This project performs:
 
----
+Thorough EDA
 
-## 🤝 Want me to polish further?
+Statistical testing & visualization
 
-I can also:
+Predictive modeling (Random Forest, Regression, Correlation tests)
 
-* Export and embed the top 6 plots into `assets/` and update the README with badges and images.
-* Convert the notebook sections into separate scripts under `src/`.
-* Produce a short `presentation.md` or `slides` summary for interviews.
+It investigates relationships between:
 
-Tell me which of these you want next and I will update the repo files accordingly.
+Risk factors (Smoking, Obesity, Genetic Risk, Pollution)
 
----
+Treatment costs
 
-*Made with care — your notebook reviewed and a beautiful README generated.*
+Cancer stages
+
+Survival outcomes
+
+📂 Notebook → Cancer_Data_Analysis.ipynb
+📂 Dataset → global_cancer_patients_2015_2024.csv
+
+📊 Dataset Features
+
+Patient demographics (Age, Gender, Country/Region)
+
+Cancer type & stage
+
+Lifestyle risks (Smoking, Alcohol, Obesity, Pollution)
+
+Genetic risk
+
+Treatment cost (USD)
+
+Survival years
+
+Derived target: Severity Score
+
+🔎 Workflow
+🧹 Data Preprocessing
+
+✔ Handle missing values & duplicates
+✔ Encode categorical features
+✔ Normality check (Shapiro-Wilk test)
+
+📈 Exploratory Data Analysis (EDA)
+
+✔ Distribution of Cancer Types, Stages, Age
+✔ Correlation → Treatment Cost vs Survival (Pearson & Spearman)
+✔ Early-stage diagnosis rates
+✔ Interaction models → Genetic Risk × Smoking
+
+🤖 Modeling
+
+Random Forest Regressor → Severity Score
+
+Random Forest + GridSearchCV → Survival Prediction
+
+Feature Importance Visualization
+
+📉 Evaluation
+
+Metrics: R², MAE, Residuals
+
+Found weak predictive power → suggests exploring XGBoost, Survival Models
+
+📈 Key Insights
+
+Early diagnosis: ~38% of Lung Cancer & ~39% of Leukemia cases detected at Stage 0/I
+
+Weak correlation between Treatment Cost & Survival Years
+
+Strong interaction effect: Smoking worsens severity more for high genetic risk patients
+
+Random Forest gave insights but low R² → need advanced models
+
+⚙️ Requirements
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+
+requirements.txt
+
+pandas  
+numpy  
+matplotlib  
+seaborn  
+scikit-learn  
+scipy  
+statsmodels  
+jupyterlab  
+plotly  
+
+▶️ Run the Project
+
+Clone repo:
+
+git clone https://github.com/your-username/global-cancer-trends-2015-2024.git
+cd global-cancer-trends-2015-2024
+
+
+Open Jupyter Notebook:
+
+jupyter notebook Cancer_Data_Analysis.ipynb
+
+
+Run all cells sequentially.
+
+👨‍💻 Author
+
+Amit Sahu
+
+🌐 LinkedIn
+
+🐙 GitHub
+
+📊 Kaggle
