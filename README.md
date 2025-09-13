@@ -5,10 +5,11 @@ It covers **descriptive statistics, visualization, statistical hypothesis testin
 
 ---
 
-## 📂 Project Structure
-├── Cancer_Data_Analysis.ipynb # Main Jupyter Notebook
-├── global_cancer_patients_2015_2024.csv # Dataset
-└── README.md # Documentation
+📂 Project Structure
+├── Cancer_Data_Analysis.ipynb   # Main Jupyter Notebook
+├── global_cancer_patients_2015_2024.csv   # Dataset
+└── README.md   # Documentation
+
 
 
 ---
