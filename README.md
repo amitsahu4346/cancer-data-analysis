@@ -66,19 +66,12 @@ pip install -r requirements.txt
 🛠 Requirements
 
 numpy
-
 pandas
-
 seaborn
-
 matplotlib
-
 scipy
-
 scikit-learn
-
 statsmodels
-
 jupyter
 
 Open Notebook:
@@ -88,13 +81,8 @@ jupyter notebook Cancer_Data_Analysis.ipynb
 📈 Sample Visualizations
 
 Age & Gender distribution
-
 Country-wise cancer incidence (Pie Chart)
-
 Cancer types & stages (Bar Plots)
-
 Risk factors vs Severity (Regression plots)
-
 Treatment costs across countries (Heatmaps)
-
 Feature importance from Random Forest
